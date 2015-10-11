@@ -27,7 +27,7 @@ public class Calculator implements Runnable {
         for (Long i = Long.valueOf(start); i < Long.valueOf(end); i++) {
             String ans = numberToString(i, alphabet.toCharArray());
             if (ans.equals("koer")) {
-                System.out.println("mingiyay");
+                System.out.println("sõna on koer");
             }
             String resultHash = null;
             try {
@@ -44,10 +44,10 @@ public class Calculator implements Runnable {
                 e.printStackTrace();
             }
             if (hash.equals(resultHash)) {
-                System.out.println("YAAAY");
+                System.out.println("MATCH FOUND");
             }
         }
-        System.out.println("nada");
+        System.out.println("Nothing to see here...");
 
     }
 
@@ -66,6 +66,4 @@ public class Calculator implements Runnable {
 
         return String.join("", result);
     }
-
-
 }
