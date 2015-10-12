@@ -1,6 +1,4 @@
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,27 +6,30 @@ import java.util.List;
  * Created by mart on 11.10.15.
  */
 public class Calculator implements Runnable {
+    private String id;
+    private String masterPort;
+    private String masterIp;
     private String alphabet;
     private String hash;
     private String start;
     private String end;
 
-    public Calculator(String hash, String start, String end, String alphabet) {
+    public Calculator(String hash, String start, String end, String alphabet, String masterIp, String masterPort, String id) {
         this.hash = hash;
         this.start = start;
         this.end = end;
         this.alphabet = alphabet;
+        this.masterIp = masterIp;
+        this.masterPort = masterPort;
+        this.id = id;
     }
 
     @Override
     public void run() {
-        System.out.println("CALCULATING");
 
         for (Long i = Long.valueOf(start); i < Long.valueOf(end); i++) {
             String ans = numberToString(i, alphabet.toCharArray());
-            if (ans.equals("koer")) {
-                System.out.println("sõna on koer");
-            }
+
             String resultHash = null;
             try {
                 MessageDigest md = MessageDigest.getInstance("MD5");
@@ -39,16 +40,16 @@ public class Calculator implements Runnable {
                     sb.append(String.format("%02x", b & 0xff));
                 }
                 resultHash = sb.toString();
-                //System.out.println("digested(hex):" + resultHash);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             if (hash.equals(resultHash)) {
-                System.out.println("MATCH FOUND");
+                System.out.println("MATCH FOUND " + ans);
+                //anwser back result
             }
         }
-        System.out.println("Nothing to see here...");
 
+        //no result, respond.
     }
 
 
