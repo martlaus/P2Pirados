@@ -1,9 +1,7 @@
-import java.io.*;
-import java.net.InetSocketAddress;
+package cracker;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.net.httpserver.HttpServer;
 
 public class Main {
     public static List<Integer> ports = new ArrayList<>();
@@ -27,8 +25,8 @@ public class Main {
 
 
         for (int port : ports) {
-            Server server = new Server(port);
-            server.run();
+            Server server2 = new Server(port);
+            server2.run();
         }
     }
 }

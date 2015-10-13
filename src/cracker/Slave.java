@@ -1,3 +1,5 @@
+package cracker;
+
 /**
  * Created by mart on 27.09.15.
  */

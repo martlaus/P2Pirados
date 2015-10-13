@@ -1,14 +1,15 @@
+package cracker;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.simple.JSONArray;
+import utils.MachinesReader;
+import utils.UniqueIdentifierGenerator;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,7 +42,7 @@ public class InfoHandler implements HttpHandler {
 
     public void doQuerysToMyMachines(String sendport, String md5Hash) throws UnknownHostException {
         UniqueIdentifierGenerator uniqueIdentifierGenerator = new UniqueIdentifierGenerator();
-        String sendip = InetAddress.getLocalHost().getHostAddress();
+        String sendip = "192.168.0.103";
         SlaveHandler.setMd5Hash(md5Hash);
 
 
@@ -55,11 +56,12 @@ public class InfoHandler implements HttpHandler {
         String id = uniqueIdentifierGenerator.nextId();
 
         try {
-            doRequests.sendGetRequests(machines, sendip, sendport, null, id);
+            String noask = sendip + "_" + sendport;
+            String ttl = "5";
+            doRequests.sendGetRequests(machines, sendip, sendport, noask, id, ttl);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 

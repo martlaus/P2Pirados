@@ -1,13 +1,13 @@
+package cracker;
+
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.simple.JSONArray;
+import utils.MachinesReader;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +15,6 @@ import java.util.Map;
  */
 public class ResourceQueryHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
-        System.out.println(" ");
 
         System.out.println("Resource query received on port: " + t.getLocalAddress().getPort());
         String response = "Response: Resource query received, sending back a response and recursively sending" +
@@ -45,15 +44,18 @@ public class ResourceQueryHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        //do querys to own machines
-        MachinesReader machinesReader = new MachinesReader();
-        JSONArray machines = machinesReader.readFileToArray(myport);
 
 
         try {
+            //do querys to own machines
+            MachinesReader machinesReader = new MachinesReader();
+            JSONArray machines = machinesReader.readFileToArray(myport);
+
             //param ports and ips
-            if (machines != null) {
-                doRequests.sendGetRequests(machines, sendip, sendport, null, "4");
+            int ttlValue = Integer.valueOf(ttl);
+            if (machines != null && ttlValue > 1) {
+                ttlValue = ttlValue - 1;
+                doRequests.sendGetRequests(machines, sendip, sendport, noask, id, String.valueOf(ttlValue));
 
             }
         } catch (Exception e) {
@@ -62,7 +64,7 @@ public class ResourceQueryHandler implements HttpHandler {
     }
 
     public Map<String, String> queryToMap(String query) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<>();
         for (String param : query.split("&")) {
             String pair[] = param.split("=");
             if (pair.length > 1) {
