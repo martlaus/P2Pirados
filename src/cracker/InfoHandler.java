@@ -42,7 +42,7 @@ public class InfoHandler implements HttpHandler {
 
     public void doQuerysToMyMachines(String sendport, String md5Hash) throws UnknownHostException {
         UniqueIdentifierGenerator uniqueIdentifierGenerator = new UniqueIdentifierGenerator();
-        String sendip = "192.168.0.103";
+        String sendip = "10.224.3.99";
         SlaveHandler.setMd5Hash(md5Hash);
 
 

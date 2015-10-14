@@ -60,7 +60,7 @@ public class DoRequests {
 
     // HTTP POST request - Resource Reply to master
     public void postResourceReply(String sendip, String sendport, String id, String resource, String myport) throws Exception {
-        String myip = "192.168.0.103";
+        String myip = "10.224.3.99";
 
         String url = "http://" + sendip + ":" + sendport + "/resourcereply";
         URL obj = new URL(url);
@@ -107,7 +107,7 @@ public class DoRequests {
     // HTTP POST request - Calculation Query to slave
     public void postCalculationQuery(String slaveip, String sendport, String id, String md5,
                                      String rangeStart, String rangeEnd, String alphabet, int myport) throws Exception {
-        String myip = "192.168.0.103";
+        String myip = "10.224.3.99";
 
         String url = "http://" + slaveip + ":" + sendport + "/checkmd5";
         URL obj = new URL(url);
@@ -156,7 +156,7 @@ public class DoRequests {
     //POST md5 calculation response with the password if found
     public void postAnswerMd5(String masterIp, String masterPort, String myPort, String id, String md5,
                               String result, String resultString) throws Exception {
-        String myip = "192.168.0.103";
+        String myip = "10.224.3.99";
 
         String url = "http://" + masterIp + ":" + masterPort + "/answermd5";
         URL obj = new URL(url);
